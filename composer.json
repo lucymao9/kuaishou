@@ -1,0 +1,19 @@
+{
+    "name": "lucymao9\/kuaishou",
+    "description": "快手开放平台SDK",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lucymao9",
+            "email": "495505956@qq.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lucymao9\\Kuaishou\\": "src"
+        }
+    }
+}

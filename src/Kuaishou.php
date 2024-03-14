@@ -30,7 +30,6 @@ class Kuaishou
 
     protected $currentMethod = [];
 
-
     public function __construct(array $config)
     {
         if (!isset($config['appKey'])) {
@@ -159,6 +158,29 @@ class Kuaishou
             $json['certificate_ids'] = $params['certificate_ids'];
 
         $result = $this->doRequest('post', '/goodlife/v1/fulfilment/certificate/verify', ['json' => $json]);
+        return $result;
+    }
+
+    /**
+     * 批量解密数据
+     * @param array $params
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function decryptBatch(array $params = [])
+    {
+        //密文列表，每次最多十条
+        $template = [
+            'cipher_infos'=>[
+                ['cipher_text'=>'1231231231'],
+                ['cipher_text'=>'4354345345']
+            ]
+        ];
+        if (!isset($params['cipher_infos']) || !is_array($params['cipher_infos']) || count($params['cipher_infos']) == 0) throw new InvalidArgumentException("Missing param -- [text]");
+
+        $this->setCurrentMethod(__FUNCTION__, func_get_args());
+
+        $result = $this->doRequest('post', '/goodlife/security/decrypt/batch', ['json' => $params]);
         return $result;
     }
 
